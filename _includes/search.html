@@ -1,0 +1,61 @@
+<input type="search" placeholder="Search" autocomplete="off" id="searchbox" />
+<div id="search-results"></div>
+
+<script type="text/javascript">
+
+    var index = lunr(function () {
+        this.ref('data');
+        this.field('title', {boost: 10});
+        this.field('tags', {boost: 5});
+        this.field('body');
+    });
+
+    {% for post in site.posts %}
+        index.add({
+            data: JSON.stringify({
+                'url': '{{ post.url }}',
+                'title': '{{ post.title }}',
+                'date': '{{ post.date | date:"%d %B %Y" }}'
+            }),
+            title: '{{ post.title }}',
+            tags: '{{ post.tags | join:' ' }}',
+            body: '{{ post.content | strip_html | strip_newlines }}'
+        });
+    {% endfor %}
+
+    // attach event listener to input
+    var $searchBox = $('#searchbox');
+    var $searchResults = $('#search-results');
+
+    $searchBox.keyup(function (e) {
+        var $this = $(this);
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+
+        // Yes, I am using == instead of ===. Screw me, right?
+        if (keycode == '13' && $this.val().length >= 3) { // 13 === Enter
+            var result = index.search($this.val());
+            $searchResults.empty();
+            if (result.length > 0) {
+                $searchResults
+                    .append('<span class="close">&#215;</span>')
+                    .click(function () {
+                        $searchResults.empty();
+                    });
+            }
+
+            result.forEach(function (item) {
+                var data = JSON.parse(item.ref);
+                $searchResults.append($('<a/>', {
+                    'href': data.url,
+                    'text': data.title}).append($('<span/>', {
+                        'class': 'date',
+                        'text': '[' + data.date + ']'})
+                    )
+                );
+            });
+        } else  if (keycode == '27') { // 27 === Esc
+            $searchResults.empty();
+        }
+    });
+
+</script>
