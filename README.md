@@ -8,7 +8,7 @@ This repository is under [MIT License](LICENSE).
 Dependencies
 ------------
 
-- jQuery
-- lunr.js
+- [jQuery](http://jquery.com/)
+- [lunr.js](lunrjs.com)
 
 Feel free to contribute in any way you'd prefer :)
