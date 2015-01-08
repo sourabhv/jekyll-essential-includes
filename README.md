@@ -9,6 +9,6 @@ Dependencies
 ------------
 
 - [jQuery](http://jquery.com/)
-- [lunr.js](lunrjs.com)
+- [lunr.js](http://lunrjs.com/)
 
 Feel free to contribute in any way you'd prefer :)
