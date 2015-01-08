@@ -4,16 +4,16 @@
         {% capture next_year %}{{ post.next.date | date: '%Y' }}{% endcapture %}
         {% if year != next_year %}
             </ul>
-            <h2 class="tag-archive">{{ post.date | date: '%Y' }}</h2>
-            <ul class="tag-archive">
+            <h2>{{ post.date | date: '%Y' }}</h2>
+            <ul>
         {% endif %}
     {% else %}
         <!-- latest/first post -->
-        <h2 class="tag-archive">{{ post.date | date: '%Y' }}</h2>
-        <ul class="tag-archive">
+        <h2>{{ post.date | date: '%Y' }}</h2>
+        <ul>
     {% endif %}
     <li>
-        <span class="archive">{{ post.date | date:"%b" }}</span>
+        <span>{{ post.date | date:"%b" }}</span>
         <a href="{{ post.url }}">{{ post.title }}</a>
     </li>
 {% endfor %}

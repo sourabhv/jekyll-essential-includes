@@ -1,0 +1,41 @@
+<ul id="toptags" style="display: none">
+    {% for post in site.tags %}
+        {% capture tag %}{{ post | first }}{% endcapture %}
+        <li class="tag">{{ tag }}<span>{{ site.tags[tag] | size }}</span></li>
+    {% endfor %}
+</ul>
+
+<script type="text/javascript">
+    var $topTags = $('#toptags');
+    var tags = [];
+
+    // get all tags
+    $topTags.children('li').each(function () {
+        tags.push({
+            'name': $(this).clone().children().remove().end().text(),
+            'count': $(this).children('span:first').text()
+        });
+    });
+
+    // sort and slice tags to top 10
+    tags.sort(function (a, b) {
+        return b.count - a.count;
+    });
+    tags = tags.slice(0, 10);
+
+    // remove previous entries and add new tags
+    $topTags.children().remove();
+    tags.forEach(function (tag) {
+        $topTags.append(
+            $('<li/>').append(
+                $('<a/>', {
+                    'href': '/tags/?tag=' + tag.name,
+                    'text': tag.name
+                })
+            )
+        );
+    });
+
+    // display topTags
+    $topTags.removeAttr('style');
+</script>
