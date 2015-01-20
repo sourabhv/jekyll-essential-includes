@@ -1,0 +1,8 @@
+# permalink of tags page
+tag_page_url: "/tags/"
+
+# prefix of tag class added to h2 and ul in tags.html
+tag_class_prefix: "tag-"
+
+# number of top tags to show
+top_tags_count: 10

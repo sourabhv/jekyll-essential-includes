@@ -1,8 +1,8 @@
 {% for data in site.tags %}
     {% capture tag %}{{ data | first }}{% endcapture %}
     <!-- keep these classes if you are using top_tags.html -->
-    <h2 class="tag-{{ tag }}" >{{ tag }}</h2>
-    <ul class="tag-{{ tag }}" >
+    <h2 class="{{ tag_class_prefix }}{{ tag }}" >{{ tag }}</h2>
+    <ul class="{{ tag_class_prefix }}{{ tag }}" >
         {% for post in site.tags[tag] %}
             <li>
                 <span>{{ post.date | date: '%b %Y' }}</span>
@@ -18,8 +18,8 @@
     var url = window.location.href;
     var tag = url.split('=')[1];
     if (tag) {
-        $('h1').html('<a href="/tags/">Tags</a>:' + tag);
-        var selector = '[class^=tag-]:not(.tag-' + tag + ')';
+        $('h1').html('<a href="{{ tag_page_url }}">Tags</a>:' + tag);
+        var selector = '[class^={{ tag_class_prefix }}]:not(.{{ tag_class_prefix }}' + tag + ')';
         $(selector).hide();
     }
 </script>

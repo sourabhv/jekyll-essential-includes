@@ -1,7 +1,7 @@
 <ul id="toptags" style="display: none">
     {% for post in site.tags %}
         {% capture tag %}{{ post | first }}{% endcapture %}
-        <li class="tag">{{ tag }}<span>{{ site.tags[tag] | size }}</span></li>
+        <li>{{ tag }}<span>{{ site.tags[tag] | size }}</span></li>
     {% endfor %}
 </ul>
 
@@ -21,7 +21,7 @@
     tags.sort(function (a, b) {
         return b.count - a.count;
     });
-    tags = tags.slice(0, 10);
+    tags = tags.slice(0, {{ top_tags_count }});
 
     // remove previous entries and add new tags
     $topTags.children().remove();
@@ -29,7 +29,7 @@
         $topTags.append(
             $('<li/>').append(
                 $('<a/>', {
-                    'href': '/tags/?tag=' + tag.name,
+                    'href': '{{ tag_page_url }}?tag=' + tag.name,
                     'text': tag.name
                 })
             )
